@@ -19,7 +19,6 @@ on:
   status: {}
 jobs:
   automerge:
-    permissions: write-all
     runs-on: ubuntu-latest
     steps:
       - id: automerge

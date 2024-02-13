@@ -10,9 +10,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Setup npm/node leveraging full caching
-        uses: ./.github/setup-npm-with-caching
-
       - run: npm run lint
       - run: npm test

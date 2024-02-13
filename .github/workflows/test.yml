@@ -1,0 +1,21 @@
+name: Simulate npm test
+on:
+  pull_request
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Install dependencies
+      run: npm install
+      
+    - name: Run test script
+      run: |
+        # Replace this with your test command
+        # Example: npm test
+        echo "Running npm test..."
+        # Simulate a test failure by uncommenting the following line
+        # exit 1

@@ -4,24 +4,18 @@ name: CI
 
 # Controls when the workflow will run
 on:
-  pull_request:
-    types: [labeled]
+  pull_request
+    # types: [labeled]
 
 jobs:
-  # This workflow contains a single job called "build"
-  check-all-tests:
-    # The type of runner that the job will run on
+  get-status:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-
-      - uses: actions/get-status@0.0.1
+      - name: Get Status of current ref
+        id: get-status
+        uses: danieldeichfuss/get-status@v0
         with:
           ref: ${{ github.sha }}
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Deploy to Production
+        if: ${{steps.get-status.outputs.all-checks-completed == 'true' &&  steps.get-status.outputs.all-checks-passed == 'true'}}
+        run: echo "Deploying to production"

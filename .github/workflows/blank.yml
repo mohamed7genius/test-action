@@ -11,11 +11,21 @@ jobs:
   get-status:
     runs-on: ubuntu-latest
     steps:
-      - name: Get Status of current ref
-        id: get-status
-        uses: action/get-status@0.0.1
+      - uses: autotelic/action-wait-for-status-check@v1
+        id: wait-for-status
         with:
-          ref: ${{ github.sha }}
-      - name: Deploy to Production
-        if: ${{steps.get-status.outputs.all-checks-completed == 'true' &&  steps.get-status.outputs.all-checks-passed == 'true'}}
-        run: echo "Deploying to production"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          statusName: "An Expected Commit Status Context"
+
+      - name: Do something with a passing status
+        if: steps.wait-for-status.outputs.state == 'success'
+
+      - name: Do something with a failing status
+        if: steps.wait-for-status.outputs.state == 'failure'
+  
+      - name: Echo Outputs
+        run: |
+         echo ${{ steps.wait-for-status.outputs.context }}
+         echo ${{ steps.wait-for-status.outputs.state }}
+         echo ${{ steps.wait-for-status.outputs.description }}
+         echo ${{ steps.wait-for-status.outputs.target_url }}  

@@ -46,7 +46,7 @@ jobs:
             const check = statuses.check_runs
               .filter(checkRun => checkRun.name !== currentActionName)
               .every(checkRun => {
-                console.log('checkRun', checkRun, checkRun.conclusion === 'success');
+                console.log('checkRun', checkRun.name, checkRun.conclusion === 'success');
                 return checkRun.conclusion === 'success'
               });
 

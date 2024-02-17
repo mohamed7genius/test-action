@@ -43,17 +43,23 @@ jobs:
             }));
 
             const currentActionName = context.job;
-            const actionStatuses2 = statuses.check_runs
+            const check = statuses.check_runs
               .filter(checkRun => checkRun.name !== currentActionName)
               .every(checkRun => checkRun.conclusion === 'success');
 
             console.log('current action: ', currentActionName);
             
-            console.log('results', actionStatuses2);
+            console.log('results', check);
 
             console.log('details', actionStatuses);
 
             console.log('all details', statuses);
+
+            if ( !check ) {
+              return;
+            }
+
+            console.log('continue');
 
   afterWait:
     name: after-wait

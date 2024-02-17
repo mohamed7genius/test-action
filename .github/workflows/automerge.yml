@@ -42,6 +42,13 @@ jobs:
               conclusion: checkRun.conclusion
             }));
 
+            const currentActionName = context.job;
+            const actionStatuses2 = statuses.check_runs
+              .filter(checkRun => checkRun.name !== currentActionName)
+              .map(checkRun => ({ name: checkRun.name, conclusion: checkRun.conclusion }));
+
+            console.log('results', actionStatuses2);
+
             console.log('details', actionStatuses);
 
             console.log('all details', statuses);

@@ -18,22 +18,24 @@ on:
       - completed
   status: {}
 jobs:
-  view-status:
+  check-status:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Check Workflow Status
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const runs = await github.actions.listRepoWorkflowRuns({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: context.workflow,
+              branch: context.ref.split('/').slice(2).join('/')
+            });
 
-    - name: List all workflow runs for the pull request
-      id: list-runs
-      run: |
-        echo "::set-output name=workflow-runs::$(jq -nc "$GITHUB" | jq '{repo: .repository.full_name, pr_number: .event.number, sha: .event.pull_request.head.sha}')"
-
-    - name: Display workflow runs
-      run: |
-        echo "Workflow runs for PR ${{ github.event.pull_request.number }}:"
-        echo "${{ steps.list-runs.outputs.workflow-runs }}"
+            const statuses = runs.data.workflow_runs.map(run => run.status);
+            console.log(statuses);
   automerge:
     runs-on: ubuntu-latest
     steps:

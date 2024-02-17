@@ -10,9 +10,10 @@ on:
       - ready_for_review
       - reopened
       - unlocked
-  check_run:
-    types:
-      - completed
+  workflow_run:
+      workflows: ["test"]
+      types:
+        - completed
 jobs:
   waitForWorkflows:
     name: Wait for workflows

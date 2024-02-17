@@ -6,9 +6,6 @@ on:
   check_suite:
     types:
       - completed
-  check_run:
-    types: 
-      -completed
 jobs:
   waitForWorkflows:
     name: Wait for workflows
@@ -55,13 +52,3 @@ jobs:
             }
 
             console.log('continue');
-
-  afterWait:
-    name: after-wait
-    needs: [waitForWorkflows]
-    runs-on: ubuntu-latest
-    if: always()
-    steps:
-      - name: Check needs results
-        if: needs.waitForWorkflows.result != 'success'
-        run: exit 1

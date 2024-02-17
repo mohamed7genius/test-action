@@ -42,10 +42,13 @@ jobs:
               conclusion: checkRun.conclusion
             }));
 
-            const currentActionName = context.job;
+            const currentActionName = 'Wait for workflows';
             const check = statuses.check_runs
               .filter(checkRun => checkRun.name !== currentActionName)
-              .every(checkRun => checkRun.conclusion === 'success');
+              .every(checkRun => {
+                console.log('checkRun', checkRun, checkRun.conclusion === 'success');
+                return checkRun.conclusion === 'success'
+              });
 
             console.log('current action: ', currentActionName);
             

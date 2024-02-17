@@ -10,8 +10,7 @@ on:
       - ready_for_review
       - reopened
       - unlocked
-  workflow_run:
-      workflows: ["test"]
+  check_suite:
       types:
         - completed
 jobs:

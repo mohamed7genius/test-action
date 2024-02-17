@@ -18,29 +18,34 @@ on:
       - completed
   status: {}
 jobs:
-  check-status:
+  waitForWorkflows:
+    name: Wait for workflows
     runs-on: ubuntu-latest
-
+    if: always()
     steps:
-      - name: Check Workflow Status
-        uses: actions/github-script@v5
+      - name: Checkout repository
+        uses: actions/checkout@v3
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const runs = await github.actions.listRepoWorkflowRuns({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              workflow_id: context.workflow,
-              branch: context.ref.split('/').slice(2).join('/')
-            });
+          ref: ${{ github.event.pull_request.head.sha || github.event.merge_group.head_sha }}
 
-            const statuses = runs.data.workflow_runs.map(run => run.status);
-            console.log(statuses);
-  automerge:
-    runs-on: ubuntu-latest
-    steps:
-      - id: automerge
-        name: automerge
-        uses: "pascalgn/automerge-action@v0.16.2"
+      - name: Wait for workflows
+        id: wait
+        uses: smartcontractkit/chainlink-github-actions/utils/wait-for-workflows@main
+        with:
+          max-timeout: "900"
+          polling-interval: "30"
+          exclude-workflow-names: ""
+          exclude-workflow-ids: ""
+          github-token: ${{ secrets.GITHUB_TOKEN }}
         env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          DEBUG: "true"
+
+  afterWait:
+    name: after-wait
+    needs: [waitForWorkflows]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Check needs results
+        if: needs.waitForWorkflows.result != 'success'
+        run: exit 1

@@ -31,18 +31,20 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const { owner, repo } = context.repo;
-            const pull_number = context.payload.pull_request.number;
-            const merge_method = 'rebase'; // Can be 'merge', 'squash' or 'rebase'
-            
-            // Fetch PR details
-            const { data: pullRequest } = await github.rest.pulls.get({
-              owner,
-              repo,
-              pull_number,
+            const { data: statuses } = await github.request('GET /repos/:owner/:repo/commits/:sha/check-runs', {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.payload.pull_request.head.sha
             });
 
-            console.log('all details', pullRequest);
+            const actionStatuses = statuses.check_runs.map(checkRun => ({
+              name: checkRun.name,
+              conclusion: checkRun.conclusion
+            }));
+
+            console.log('details', actionStatuses);
+
+            console.log('all details', statuses);
 
   afterWait:
     name: after-wait

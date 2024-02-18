@@ -59,7 +59,7 @@ jobs:
             console.log('all details', statuses);
 
             if ( !check ) {
-              echo "::set-output name=waitForWorkflows_status::failure"  # Set custom output to indicate failure
+              ::set-output name=waitForWorkflows_status::failure
             }
 
             console.log('continue');

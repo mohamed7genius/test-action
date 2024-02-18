@@ -6,8 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Sleep for 1 minute
-        run: sleep 60s
+      - name: Sleep for 10 seconds
+        run: sleep 10s
         shell: bash
           
       - name: Install dependencies

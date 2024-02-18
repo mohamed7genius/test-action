@@ -1,10 +1,5 @@
 name: automerge
 on:
-  pull_request:
-    types:
-      - labeled
-      - synchronize
-      - edited
   check_suite:
     types:
       - completed

@@ -59,7 +59,7 @@ jobs:
             console.log('all details', statuses);
 
             if ( !check ) {
-              exit;
+              gh run cancel ${{ github.run_id }}
             }
 
             console.log('continue');

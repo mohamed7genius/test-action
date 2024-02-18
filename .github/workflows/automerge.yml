@@ -11,6 +11,7 @@ on:
       - reopened
       - unlocked
   workflow_run:
+    workflows: [test]
     types:
       - completed
 jobs:

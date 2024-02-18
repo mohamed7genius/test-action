@@ -10,9 +10,9 @@ on:
       - ready_for_review
       - reopened
       - unlocked
-  check_suite:
-      types:
-        - completed
+  workflow_run:
+    types:
+      - completed
 jobs:
   waitForWorkflows:
     name: Wait for workflows

@@ -1,7 +1,7 @@
 name: automerge
 on:
   workflow_run:
-    workflows: [Simulate npm test]
+    workflows: [Simulate npm test, test]
     types:
       - completed
 jobs:

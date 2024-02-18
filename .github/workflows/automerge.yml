@@ -11,7 +11,7 @@ on:
       - reopened
       - unlocked
   workflow_run:
-    workflows: [test]
+    workflows: [Simulate npm test]
     types:
       - completed
 jobs:

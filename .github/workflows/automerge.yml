@@ -59,7 +59,7 @@ jobs:
             console.log('all details', statuses);
 
             if ( !check ) {
-              ::set-output name=waitForWorkflows_status::failure
+              core.setFailed(error.message);
             }
 
             console.log('continue');

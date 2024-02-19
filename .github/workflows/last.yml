@@ -17,8 +17,8 @@ jobs:
     name: always_last
     runs-on: ubuntu-latest
     steps:
-      - name: Pause until all workflows are completed
-        uses: willgarcia/workflow-wait-action@latest  
+      - name: wait for check suites
+      - uses: jitterbit/await-check-suites@v1
 
       - name: Resume and run once, after all workflows are completed
         run: date

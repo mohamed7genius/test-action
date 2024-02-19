@@ -19,6 +19,8 @@ jobs:
     steps:
       - name: wait for check suites
         uses: jitterbit/await-check-suites@v1
+        with: 
+          appSlugFilter: 'workflow-last'
 
       - name: Resume and run once, after all workflows are completed
         run: date

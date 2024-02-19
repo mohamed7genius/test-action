@@ -70,7 +70,7 @@ jobs:
         run: echo "${{steps.set-result.outputs.result}}"
 
       - name: Writing
-        if: ${{ steps.set-result.outputs.result != 'true' }}
+        if: ${{ steps.set-result.outputs.result == 'true' }}
         run: echo "${{needs.waitForWorkflows.outputs.status}}"
 
       - name: Install dependencies

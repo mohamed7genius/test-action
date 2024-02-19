@@ -17,10 +17,8 @@ jobs:
     name: always_last
     runs-on: ubuntu-latest
     steps:
-      - name: wait for check suites
-        uses: jitterbit/await-check-suites@v1
-        with: 
-          appSlugFilter: 'workflow-last'
+      - name: Wait Last Action
+        uses: ygqygq2/workflow-wait-action@v1
 
       - name: Resume and run once, after all workflows are completed
         run: date

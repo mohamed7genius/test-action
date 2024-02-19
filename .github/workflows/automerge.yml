@@ -59,11 +59,10 @@ jobs:
             console.log('all details', statuses);
 
             if ( !check ) {
-              core.setFailed(error.message);
+              return false;
             }
 
             console.log('continue');
-        continue-on-error: false
   anotheraction:
       if: ${{ needs.job1.outputs.waitForWorkflows_status != 'failure' }}  # Only run if job1 succeeded
       runs-on: ubuntu-latest

@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: wait for check suites
-      - uses: jitterbit/await-check-suites@v1
+        uses: jitterbit/await-check-suites@v1
 
       - name: Resume and run once, after all workflows are completed
         run: date

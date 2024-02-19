@@ -71,6 +71,9 @@ jobs:
   
       steps:
         - uses: actions/checkout@v4
+
+        - name: Writing
+          run: echo needs.waitForWorkflows.outputs.status
   
         - name: Install dependencies
           run: echo "Running npm test... " + needs.waitForWorkflows.outputs.status

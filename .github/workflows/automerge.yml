@@ -1,7 +1,7 @@
 name: automerge
 on:
   check_suite:
-    types: [completed]
+    types: [completed, success]
 jobs:
   waitForWorkflows:
     name: Wait for workflows

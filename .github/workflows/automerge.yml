@@ -65,15 +65,15 @@ jobs:
             console.log('continue');
             return true;
   anotheraction:
+      runs-on: ubuntu-latest
       needs: waitForWorkflows
       if: ${{ needs.waitForWorkflows.outputs.status != 'true' }} # Only run if job1 succeeded
-      runs-on: ubuntu-latest
   
       steps:
         - uses: actions/checkout@v4
 
         - name: Writing
-          run: echo needs.waitForWorkflows.outputs.status
+          run: echo ${{needs.waitForWorkflows.outputs.status}}
   
         - name: Install dependencies
           run: echo "Running npm test... " + needs.waitForWorkflows.outputs.status

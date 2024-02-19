@@ -1,9 +1,10 @@
 name: automerge
 on:
-  check_suite:
-    branches:
-      - ${{ github.event.pull_request.head.ref }}
-    types: [completed]
+  pull_request:
+    types:
+      - labeled
+      - synchronize
+      - edited
 jobs:
   waitForWorkflows:
     name: Wait for workflows

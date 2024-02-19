@@ -1,6 +1,9 @@
 name: automerge
 on:
-  status
+  workflow_run:
+    workflows: [Simulate npm test]
+    types:
+      - completed
 jobs:
   waitForWorkflows:
     name: Wait for workflows

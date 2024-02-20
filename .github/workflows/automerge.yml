@@ -70,10 +70,13 @@ jobs:
         run: echo "${{steps.set-result.outputs.result}}"
         
       - name: Get result2
-        run: echo "${{contains(github.event.pull_request.labels.*.name, 'automerge') == 'true' }}"
+        run: echo "${{contains(github.event.pull_request.labels.*.name, 'automerge') == true }}"
       
       - name: Get result3
         run: echo "${{ (steps.check_status.outputs.result == 'true') && (contains(github.event.pull_request.labels.*.name, 'automerge') == true) }}"
+      
+      - name: Get result4
+        run: echo "${{ (steps.check_status.outputs.result == 'true') && (contains(github.event.pull_request.labels.*.name, 'automerge')) }}"
 
       - name: Writing
         if: ${{ (steps.check_status.outputs.result == 'true') && (contains(github.event.pull_request.labels.*.name, 'automerge') == true) }}

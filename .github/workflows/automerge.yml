@@ -59,12 +59,8 @@ jobs:
 
             console.log('all details', statuses);
 
-            if ( !check ) {
-              return false
-            }
 
-            console.log('continue');
-            return true;
+            return check;
     
       - name: Get result of prev step
         run: echo "${{steps.set-result.outputs.result}}"
@@ -78,8 +74,11 @@ jobs:
       - name: Check if result == true
         run: echo "${{steps.check_status.outputs.result == true }}"
       
+      - name: Check both conditions ==
+        run: echo "${{ steps.check_status.outputs.result == contains(github.event.pull_request.labels.*.name, 'automerge') }}"
+        
       - name: Check writing condition
-        run: echo "${{ (steps.check_status.outputs.result) && (contains(github.event.pull_request.labels.*.name, 'automerge')) }}"
+        run: echo "${{ steps.check_status.outputs.result && contains(github.event.pull_request.labels.*.name, 'automerge') }}"
 
       - name: Writing
         if: ${{ (steps.check_status.outputs.result) && (contains(github.event.pull_request.labels.*.name, 'automerge')) }}

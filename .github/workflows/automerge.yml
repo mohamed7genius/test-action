@@ -53,9 +53,12 @@ jobs:
     
       - name: Get result
         run: echo "${{steps.set-result.outputs.result}}"
+        
+      - name: Get result2
+        run: echo "${{contains(github.event.pull_request.labels.*.name, 'automerge')}}"
 
       - name: Writing
-        if: ${{ steps.set-result.outputs.result == 'true' && 'm' == 'm' }}
+        if: ${{ steps.check_status.outputs.result == 'true' && contains(github.event.pull_request.labels.*.name, 'automerge') }}
         run: echo "${{needs.waitForWorkflows.outputs.status}}"
 
       - name: Install dependencies

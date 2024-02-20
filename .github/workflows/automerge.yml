@@ -70,21 +70,6 @@ jobs:
       
       - name: Check if result like label is == true
         run: echo "${{contains(steps.set-result.outputs.result, true) == true }}"
-     
-      - name: Check if result == 'true'
-        run: echo "${{steps.check_status.outputs.result == 'true'}}"
-      
-      - name: Check if result == true
-        run: echo "${{!!(steps.check_status.outputs.result) == true }}"
-      
-      - name: Check if result == true
-        run: echo "${{ !!steps.check_status.outputs.result }}"
-      
-      - name: Check both conditions ==
-        run: echo "${{ steps.check_status.outputs.result == contains(github.event.pull_request.labels.*.name, 'automerge') }}"
-        
-      - name: Check writing condition
-        run: echo "${{ steps.check_status.outputs.result && contains(github.event.pull_request.labels.*.name, 'automerge') }}"
 
       - name: Writing
         if: ${{ (contains(steps.set-result.outputs.result, true)) && (contains(github.event.pull_request.labels.*.name, 'automerge')) }}

@@ -75,7 +75,7 @@ jobs:
         run: echo "${{steps.check_status.outputs.result == true }}"
      
       - name: Check res type
-        run: echo "${{ typeof steps.check_status.outputs.result }}"
+        run: echo "Type of result ${{ steps.check_status.outputs.result }} is ${{typeof steps.check_status.outputs.result}}"
 
       - name: Again - Get result of prev step
         run: echo "${{steps.set-result.outputs.result}}"

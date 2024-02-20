@@ -75,7 +75,8 @@ jobs:
         run: echo "${{steps.check_status.outputs.result == true }}"
      
       - name: Check res type
-        run: echo "${{ steps.check_status.outputs.result }}" | jq -r type
+        run: |
+          echo "Type of result: ${{ steps.check_status.outputs.result }} is $(echo '${{ steps.check_status.outputs.result }}' | jq -r 'type')"
 
       - name: Again - Get result of prev step
         run: echo "${{steps.set-result.outputs.result}}"

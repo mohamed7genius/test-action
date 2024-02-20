@@ -73,6 +73,9 @@ jobs:
       
       - name: Check if result == true
         run: echo "${{steps.check_status.outputs.result == true }}"
+
+      - name: Again - Get result of prev step
+        run: echo "${{steps.set-result.outputs.result}}"
       
       - name: Check both conditions ==
         run: echo "${{ steps.check_status.outputs.result == contains(github.event.pull_request.labels.*.name, 'automerge') }}"

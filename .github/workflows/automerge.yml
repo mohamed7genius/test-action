@@ -71,6 +71,12 @@ jobs:
         
       - name: Get result2
         run: echo "${{contains(github.event.pull_request.labels.*.name, 'automerge') == true }}"
+     
+      - name: Get result22
+        run: echo "${{steps.check_status.outputs.result == 'true'}}"
+      
+      - name: Get result222
+        run: echo "${{steps.check_status.outputs.result == true }}"
       
       - name: Get result3
         run: echo "${{ (steps.check_status.outputs.result == 'true') && (contains(github.event.pull_request.labels.*.name, 'automerge') == true) }}"

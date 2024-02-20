@@ -61,6 +61,9 @@ jobs:
 
 
             return check;
+
+      - name: Get Action Name
+        run: echo "Current action name $GITHUB_ACTION"
     
       - name: Get result of prev step
         run: echo "${{steps.set_result.outputs.result}}"

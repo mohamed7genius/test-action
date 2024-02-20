@@ -28,7 +28,7 @@ jobs:
 
       - name: Wait for workflows
         uses: actions/github-script@v6
-        id: set-result
+        id: set_result
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -63,17 +63,17 @@ jobs:
             return check;
     
       - name: Get result of prev step
-        run: echo "${{steps.set-result.outputs.result}}"
+        run: echo "${{steps.set_result.outputs.result}}"
         
       - name: Check if automerge label is == true
         run: echo "${{contains(github.event.pull_request.labels.*.name, 'automerge') == true }}"
       
       - name: Check if result like label is == true
-        run: echo "${{contains(steps.set-result.outputs.result, true) == true }}"
+        run: echo "${{contains(steps.set_result.outputs.result, true) == true }}"
 
       - name: Writing
-        if: ${{ (contains(steps.set-result.outputs.result, true)) && (contains(github.event.pull_request.labels.*.name, 'automerge')) }}
-        run: echo "${{needs.waitForWorkflows.outputs.status}}"
+        if: ${{ (contains(steps.set_result.outputs.result, true)) && (contains(github.event.pull_request.labels.*.name, 'automerge')) }}
+        run: echo "it works"
 
       - name: Install dependencies
         run: echo "Running npm test... " + needs.waitForWorkflows.outputs.status

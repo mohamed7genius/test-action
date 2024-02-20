@@ -67,6 +67,9 @@ jobs:
         
       - name: Check if automerge label is == true
         run: echo "${{contains(github.event.pull_request.labels.*.name, 'automerge') == true }}"
+      
+      - name: Check if result like label is == true
+        run: echo "${{contains(steps.set-result.outputs.result, true) == true }}"
      
       - name: Check if result == 'true'
         run: echo "${{steps.check_status.outputs.result == 'true'}}"

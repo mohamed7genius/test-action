@@ -72,7 +72,7 @@ jobs:
         run: echo "${{steps.check_status.outputs.result == 'true'}}"
       
       - name: Check if result == true
-        run: echo "${{Boolean(steps.check_status.outputs.result) == true }}"
+        run: echo "${{bool(steps.check_status.outputs.result) == true }}"
      
       - name: Check res type
         run: |

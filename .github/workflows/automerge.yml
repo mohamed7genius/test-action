@@ -43,6 +43,8 @@ jobs:
               conclusion: checkRun.conclusion
             }));
 
+            console.log('actionStatuses', actionStatuses); 
+
             const currentActionName = 'Wait for workflows';
             const check = statuses.check_runs
               .filter(checkRun => checkRun.name !== currentActionName)

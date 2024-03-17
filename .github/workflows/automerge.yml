@@ -104,7 +104,9 @@ jobs:
                 author: {
                   name: `Github Action`,
                   email: `actions@github.com`
-                }
+                },
+                commit_title: 'Auto Merge Title',
+                commit_message: 'Testing commit message'
               });
             } else {
               console.log(`PR #${pull_number} does not meet auto-merge criteria`);

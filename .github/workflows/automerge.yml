@@ -59,6 +59,7 @@ jobs:
       - name: Set Author to Github Actions
         uses: actions/github-script@v7
         with:
+          github-token: ${{ secrets.PAT }}
           script: |
             const res = await github.rest.users.getAuthenticated();
             console.log('res', res);
@@ -100,6 +101,8 @@ jobs:
                 repo,
                 pull_number,
                 merge_method,
+                author.name: `Github Action`,
+                author.email: `actions@github.com`
               });
             } else {
               console.log(`PR #${pull_number} does not meet auto-merge criteria`);

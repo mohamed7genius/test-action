@@ -12,7 +12,7 @@ jobs:
   automerge:
     runs-on: ubuntu-latest
     env:
-      GH_TOKEN: ${{ github.token }}
+      GH_TOKEN: ${{ secrets.PAT }}
       GIT_COMMITTER_NAME: Automerge GitHub Action
       GIT_COMMITTER_EMAIL: actions@github.com
       GIT_AUTHOR_NAME: Automerge GitHub Action

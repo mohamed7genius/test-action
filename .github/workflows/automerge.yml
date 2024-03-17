@@ -79,10 +79,10 @@ jobs:
             const authorEmail = 'actions@github.com';
 
             // Get the pull request details
-            const pr = await github.pulls.get({
+            const pr = await github.rest.pulls.get({
               owner,
               repo,
-              pull_number: number,
+              pull_number,
             });
 
             // Amend the commit author of the pull request branch
@@ -98,10 +98,10 @@ jobs:
             });
 
             // Merge the pull request using the desired username
-            await github.pulls.merge({
+            await github.rest.pulls.merge({
               owner,
               repo,
-              pull_number: number,
+              pull_number,
               merge_method: 'squash', // or 'merge', 'rebase'
               commit_title: 'Your merge commit title',
               commit_message: 'Your merge commit message',

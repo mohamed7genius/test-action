@@ -92,8 +92,8 @@ jobs:
                 await github.rest.git.updateRef({
                   owner,
                   repo,
-                  ref: `heads/${pullRequest.data.head.ref}`,
-                  sha: pullRequest.data.head.sha,
+                  ref: `heads/${pullRequest.head.ref}`,
+                  sha: pullRequest.head.sha,
                   force: true,
                   committer: { name: `Automerge GitHub Action`, email: `actions@github.com` },
                 });

@@ -12,7 +12,7 @@ jobs:
   automerge:
     runs-on: ubuntu-latest
     env:
-      GH_TOKEN: ${{ github.token }}
+      GH_TOKEN: ${{ secrets.PAT }}
       GIT_COMMITTER_NAME: Automerge GitHub Action
       GIT_COMMITTER_EMAIL: actions@github.com
       GIT_AUTHOR_NAME: Automerge GitHub Action
@@ -68,4 +68,7 @@ jobs:
 
       - name: Merge Pull Requests with automerge label
         if: ${{ (contains(steps.check_status.outputs.result, true)) && (contains(github.event.pull_request.labels.*.name, 'automerge')) }}
-        run: gh pr merge ${{ github.event.pull_request.number }} --rebase --admin
+        run: |
+          git config --global user.name "Automerge GitHub Action"
+          git config --global user.email "actions@github.com"
+          gh pr merge ${{ github.event.pull_request.number }} --rebase --admin

@@ -96,15 +96,6 @@ jobs:
             if (pullRequest.state === 'open' && acceptableMergeableStates.includes(pullRequest.mergeable_state)) {
               console.log(`Merging PR #${pull_number} with 'automerge' label`);
 
-              // Attempt to merge the PR
-                await github.rest.git.updateRef({
-                  owner,
-                  repo,
-                  ref: pullRequest.head.ref,
-                  sha: pullRequest.head.sha,
-                  force: true,
-                });
-              
                 await github.rest.pulls.merge({
                 owner,
                 repo,

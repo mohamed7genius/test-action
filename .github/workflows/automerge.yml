@@ -74,40 +74,41 @@ jobs:
             const { owner, repo } = context.repo;
             const pull_number = context.payload.pull_request.number;
             const merge_method = 'rebase'; // Can be 'merge', 'squash' or 'rebase'  
+            const actorName = 'desired-username'; // Change this to the desired username
+            const authorName = 'Automerge GitHub Action';
+            const authorEmail = 'actions@github.com';
 
-            const res = await github.rest.users.getAuthenticated();
-            console.log('res', res);
-
-            // Fetch PR details
-            const { data: pullRequest } = await github.rest.pulls.get({
+            // Get the pull request details
+            const pr = await github.pulls.get({
               owner,
               repo,
-              pull_number,
+              pull_number: number,
             });
 
-            console.log('Running automerge', pullRequest.state, pullRequest.mergeable_state);
+            // Amend the commit author of the pull request branch
+            await github.request('PATCH /repos/{owner}/{repo}/git/refs/{ref}', {
+              owner,
+              repo,
+              ref: `heads/${pr.data.head.ref}`,
+              sha: pr.data.head.sha,
+              author: {
+                name: authorName,
+                email: authorEmail,
+              },
+            });
 
-            const acceptableMergeableStates = ['clean', 'has_hooks', 'unknown', 'unstable', 'blocked'];
+            // Merge the pull request using the desired username
+            await github.pulls.merge({
+              owner,
+              repo,
+              pull_number: number,
+              merge_method: 'squash', // or 'merge', 'rebase'
+              commit_title: 'Your merge commit title',
+              commit_message: 'Your merge commit message',
+              commit_author: {
+                name: actorName,
+                email: authorEmail,
+              },
+            });
 
-            console.log('data', owner,
-                repo,
-                pull_number,
-                merge_method);
-
-            if (pullRequest.state === 'open' && acceptableMergeableStates.includes(pullRequest.mergeable_state)) {
-              console.log(`Merging PR #${pull_number} with 'automerge' label`);
-                await github.rest.pulls.merge({
-                owner,
-                repo,
-                pull_number,
-                merge_method,
-                author: {
-                  name: `Github Action`,
-                  email: `actions@github.com`
-                },
-                commit_title: 'Auto Merge Title',
-                commit_message: 'Testing commit message'
-              });
-            } else {
-              console.log(`PR #${pull_number} does not meet auto-merge criteria`);
-            }
+            console.log('Pull request merged successfully.');

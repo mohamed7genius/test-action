@@ -89,13 +89,12 @@ jobs:
               pull_number,
             });
 
-            console.log('Running automerge', pullRequest, pullRequest.state, pullRequest.mergeable_state);
+            console.log('Running automerge', pullRequest.state, pullRequest.mergeable_state);
 
             const acceptableMergeableStates = ['clean', 'has_hooks', 'unknown', 'unstable', 'blocked'];
 
             if (pullRequest.state === 'open' && acceptableMergeableStates.includes(pullRequest.mergeable_state)) {
               console.log(`Merging PR #${pull_number} with 'automerge' label`);
-
                 await github.rest.pulls.merge({
                 owner,
                 repo,

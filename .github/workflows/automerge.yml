@@ -101,8 +101,10 @@ jobs:
                 repo,
                 pull_number,
                 merge_method,
-                author.name: `Github Action`,
-                author.email: `actions@github.com`
+                author: {
+                  name: `Github Action`,
+                  email: `actions@github.com`
+                }
               });
             } else {
               console.log(`PR #${pull_number} does not meet auto-merge criteria`);

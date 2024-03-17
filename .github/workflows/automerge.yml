@@ -78,6 +78,10 @@ jobs:
           github-token: ${{ secrets.PAT }}
 
           script: |
+            # Set the user and email for the Github Actions
+            git config user.name "Github Actions"
+            git config user.email "actions@github.com"
+            
             const { owner, repo } = context.repo;
             const pull_number = context.payload.pull_request.number;
             const merge_method = 'rebase'; // Can be 'merge', 'squash' or 'rebase'   

@@ -20,9 +20,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup npm/node leveraging full caching
-        uses: ./.github/setup-npm-with-caching
-
       - name: Check workflows status
         uses: actions/github-script@v7
         id: check_status

@@ -80,7 +80,10 @@ jobs:
           script: |
             const { owner, repo } = context.repo;
             const pull_number = context.payload.pull_request.number;
-            const merge_method = 'rebase'; // Can be 'merge', 'squash' or 'rebase'   
+            const merge_method = 'rebase'; // Can be 'merge', 'squash' or 'rebase'  
+
+            git config user.name "Github Actions"
+            git config user.email "actions@github.com"
 
             // Fetch PR details
             const { data: pullRequest } = await github.rest.pulls.get({

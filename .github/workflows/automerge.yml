@@ -78,7 +78,7 @@ jobs:
           github-token: ${{ secrets.PAT }}
 
           script: |
-            # Set the user and email for the Github Actions
+            // Set the user and email for the Github Actions
             git config user.name "Github Actions"
             git config user.email "actions@github.com"
             

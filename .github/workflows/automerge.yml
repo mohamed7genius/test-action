@@ -78,10 +78,6 @@ jobs:
           github-token: ${{ secrets.PAT }}
 
           script: |
-            // Set the user and email for the Github Actions
-            git config user.name "Github Actions"
-            git config user.email "actions@github.com"
-            
             const { owner, repo } = context.repo;
             const pull_number = context.payload.pull_request.number;
             const merge_method = 'rebase'; // Can be 'merge', 'squash' or 'rebase'   
@@ -96,6 +92,11 @@ jobs:
             console.log('Running automerge', pullRequest.state, pullRequest.mergeable_state);
 
             const acceptableMergeableStates = ['clean', 'has_hooks', 'unknown', 'unstable', 'blocked'];
+
+            console.log('data', owner,
+                repo,
+                pull_number,
+                merge_method);
 
             if (pullRequest.state === 'open' && acceptableMergeableStates.includes(pullRequest.mergeable_state)) {
               console.log(`Merging PR #${pull_number} with 'automerge' label`);

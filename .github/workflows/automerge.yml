@@ -68,4 +68,4 @@ jobs:
 
       - name: Merge Pull Requests with automerge label
         if: ${{ (contains(steps.check_status.outputs.result, true)) && (contains(github.event.pull_request.labels.*.name, 'automerge')) }}
-        run: gh pr merge ${{ github.event.pull_request.number }} --rebase
+        run: gh pr merge ${{ github.event.pull_request.number }} --rebase --admin

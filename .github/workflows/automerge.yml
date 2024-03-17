@@ -66,6 +66,21 @@ jobs:
         run: |
           echo "${{github.event.pull_request.number}}"
 
+      - name: Approve Pull Requests with automerge label
+        uses: actions/github-script@v7
+        if: ${{ (contains(steps.check_status.outputs.result, true)) && (contains(github.event.pull_request.labels.*.name, 'automerge')) }}
+        with:
+          github-token: ${{ secrets.PAT }}
+          script: |
+            const { owner, repo } = context.repo;
+            const pull_number = context.payload.pull_request.number;
+            const result = await github.rest.pulls.createReview({
+              owner,
+              repo,
+              pull_number,
+              event: "APPROVE"
+            })
+          
       - name: Merge Pull Requests with automerge label
         if: ${{ (contains(steps.check_status.outputs.result, true)) && (contains(github.event.pull_request.labels.*.name, 'automerge')) }}
         run: |

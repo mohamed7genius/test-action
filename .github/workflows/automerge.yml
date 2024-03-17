@@ -94,6 +94,15 @@ jobs:
               console.log(`Merging PR #${pull_number} with 'automerge' label`);
 
               // Attempt to merge the PR
+                await github.git.updateRef({
+                  owner,
+                  repo,
+                  ref: `refs/heads/main`,
+                  sha: github.context.payload.after,
+                  force: true,
+                  committer: { name: `Automerge GitHub Action`, email: `actions@github.com` },
+                });
+              
                 await github.rest.pulls.merge({
                 owner,
                 repo,

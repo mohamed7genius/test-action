@@ -58,7 +58,7 @@ jobs:
 
       - name: Event Head
         run: |
-          echo "github.event.pull_request.head.ref"
+          echo "${{github.event.pull_request}}"
 
       - name: Merge Pull Requests with automerge label
         if: ${{ (contains(steps.check_status.outputs.result, true)) && (contains(github.event.pull_request.labels.*.name, 'automerge')) }}

@@ -20,6 +20,11 @@ on:
 jobs:
   automerge:
     runs-on: ubuntu-latest
+    env:
+      GIT_COMMITTER_NAME: Automerge GitHub Action
+      GIT_COMMITTER_EMAIL: actions@github.com
+      GIT_AUTHOR_NAME: Automerge GitHub Action
+      GIT_AUTHOR_EMAIL: actions@github.com
     steps:
       - id: automerge
         name: automerge

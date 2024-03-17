@@ -1,0 +1,24 @@
+name: workflow-last
+
+on:
+  pull_request:
+    types:
+      - labeled
+      - unlabeled
+      - synchronize
+      - opened
+      - edited
+      - ready_for_review
+      - reopened
+      - unlocked
+
+jobs:
+  always_last:
+    name: always_last
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait Last Action
+        uses: ygqygq2/workflow-wait-action@v1
+
+      - name: Resume and run once, after all workflows are completed
+        run: date
